@@ -2,7 +2,10 @@
 
 ### Introduction
 
-This project aims to create an integrated version of the Qencode Login UI using React + Vite + ts, based on the design from Figma and the Authentication API specification provided below.
+This project aims to create an integrated version of the Qencode Login UI using React + Vite + ts, based on the design from Figma and the Authentication API specification provided below:
+
+- Design Link: Figma Design: https://www.figma.com/file/jyCTDwiw4IwadVfae9FMu8/Qencode-Frontend-Developer-Test?type=design&node-id=0-1&mode=design
+- API References: https://auth-qa.qencode.com/v1/auth-api-references
 
 ### Installation
 
