@@ -1,0 +1,97 @@
+@font-face {
+  font-family: "BasisGrotesquePro";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./assets/fonts/BasisGrotesquePro-Bold.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "BasisGrotesquePro";
+  font-style: normal;
+  font-weight: 500;
+  src: url("./assets/fonts/BasisGrotesquePro-Medium.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "BasisGrotesquePro";
+  font-style: normal;
+  font-weight: 300;
+  src: url("./assets/fonts/BasisGrotesquePro-Light.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "BasisGrotesquePro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/BasisGrotesquePro-Regular.ttf") format("ttf");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "BasisGrotesquePro", sans-serif;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+article>*+* {
+  margin-top: 1em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body,
+#root {
+  margin: 0;
+  background-color: #FFFFFF;
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+}
