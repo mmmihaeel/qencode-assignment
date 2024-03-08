@@ -4,6 +4,11 @@ import { LoginSchema } from "../../utils/validation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { LoginDto } from "../../types";
 import { login } from "../../services";
+import qencodeLogo from "../../assets/icons/qencode.svg";
+import googleLogo from '../../assets/icons/google.svg';
+import githubLogo from '../../assets/icons/github.svg';
+import "./styles/index.scss";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm: FC = () => {
     const [loginLoading, setLoginLoading] = useState<boolean>(false);
@@ -13,7 +18,7 @@ const LoginForm: FC = () => {
     };
 
     const loginForm = useForm<LoginDto>({
-        mode: 'onChange',
+        mode: "onChange",
         resolver: zodResolver(LoginSchema),
     });
 
@@ -27,60 +32,115 @@ const LoginForm: FC = () => {
         } catch (err) {
             setLoginLoading(false);
         }
-    }
+    };
 
-    return <React.Fragment>
-        <main>
-            <FormProvider {...loginForm}>
-                <form onSubmit={loginForm.handleSubmit(onSubmit)}>
-                    <div className={'LoginStyles.login__form_container'}>
-                        <div className={'LoginStyles.login__form_field'}>
-                            <div className={'LoginStyles.login__form_field_input'}>
-                                <input type="text" style={loginForm.formState.errors.email && { border: "1px solid #BE2323" }} required {...loginForm.register('email')} />
-                                <label htmlFor="email">{'enter_email'}</label>
-                            </div>
-                            <span className={'LoginStyles.login__form_field_error'}>
-                                {loginForm.formState.errors.email &&
-                                    loginForm.formState.errors.email.message}
-                            </span>
-                        </div>
-                        <div className={'LoginStyles.login__form_field'}>
-                            <div className={'LoginStyles.login__form_field_input'}>
-                                <input style={loginForm.formState.errors.password && { border: "1px solid #BE2323" }} type={passwordShown ? 'text' : 'password'} required {...loginForm.register('password')} />
-                                <label htmlFor="password">'enter_password'</label>
-                                <div
-                                    onClick={togglePasswordShown}
-                                    className={'LoginStyles.login__form_field_input_hiddenIcon'}
-                                >
-                                    {/* <CustomImage
-                                        placeholder="blur"
-                                        blurDataURL="/static/img_placeholder.png"
-                                        src={passwordShown ? showIcon : closeIcon}
-                                        alt="show password icon"
-                                        width={24}
-                                        height={24}
-                                    /> */}
-                                </div>
-                            </div>
-                            <span className={'LoginStyles.login__form_field_error'}>
-                                {loginForm.formState.errors.password &&
-                                    loginForm.formState.errors.password.message}
-                            </span>
-                        </div>
+    return (
+        <React.Fragment>
+            <main className={"container login"}>
+                <div className={"login"}>
+                    <div className={"logo"}>
+                        <img src={qencodeLogo} alt="Qencode Logo" />
                     </div>
-                    <div className={'LoginStyles.login__form_details'}>
-                    </div>
-                    <button
-                        disabled={loginForm.formState.isSubmitting}
-                        className={`login__form__button offset`}
-                        type="submit"
+                    <h1 className={"title"}>Log in to your account</h1>
+                    <div
+                        className={"buttons"}
                     >
-                        {loginLoading ? 'Loading...' : 'Log in to Qencode'}
-                    </button>
-                </form>
-            </FormProvider>
-        </main>
-    </React.Fragment>;
-}
+                        <Link
+                            className={"button google"}
+                            type="button"
+                            title="Log in by google"
+                            to={'https://portal.qencode.com/signup'}
+                        >
+                            <img src={googleLogo} alt="Google logo" />
+                            <span>Google</span>
+                        </Link>
+                        <Link
+                            className={"button github"}
+                            type="button"
+                            title="Log in by github"
+                            to={'https://portal.qencode.com/signup'}
+                        >
+                            <img src={githubLogo} alt="Github logo" />
+                            <span>Github</span>
+                        </Link>
+                    </div>
+                    <div className={'divider'}>
+                        <div className={'line'}></div>
+                        <span>OR</span>
+                        <div className={'line'}></div>
+                    </div>
+                    <FormProvider {...loginForm}>
+                        <form onSubmit={loginForm.handleSubmit(onSubmit)} className={'form'}>
+                            <div className={"field"}>
+                                <div className={"input"}>
+                                    <input
+                                        placeholder="Work email"
+                                        type="text"
+                                        style={
+                                            loginForm.formState.errors.email && {
+                                                border: "1px solid #BE2323",
+                                            }
+                                        }
+                                        required
+                                        {...loginForm.register("email")}
+                                    />
+                                </div>
+                                <span className={"error"}>
+                                    {loginForm.formState.errors.email &&
+                                        loginForm.formState.errors.email.message}
+                                </span>
+                            </div>
+                            <div className={"field"}>
+                                <div className={"input"}>
+                                    <input
+                                        placeholder="Password"
+                                        style={
+                                            loginForm.formState.errors.password && {
+                                                border: "1px solid #BE2323",
+                                            }
+                                        }
+                                        type={passwordShown ? "text" : "password"}
+                                        {...loginForm.register("password")}
+                                    />
+                                </div>
+                                <span className={"error"}>
+                                    {loginForm.formState.errors.password &&
+                                        loginForm.formState.errors.password.message}
+                                </span>
+                            </div>
+                            <div className={"forgot"}>
+                                <Link
+                                    className={"link"}
+                                    to="/forgot-password"
+                                    rel="noopener"
+                                >
+                                    Forgot your password?
+                                </Link>
+                            </div>
+                            <button
+                                disabled={loginForm.formState.isSubmitting}
+                                className={`submit`}
+                                type="submit"
+                            >
+                                {loginLoading ? "Loading..." : "Log in to Qencode"}
+                            </button>
+                        </form>
+                        <div className={"details"}>
+                            Is your company new to Qencode?{" "}
+                            <Link
+                                className={"link"}
+                                to="https://portal.qencode.com/signup"
+                                rel="noopener"
+                                target="_blank"
+                            >
+                                Sign up
+                            </Link>
+                        </div>
+                    </FormProvider>
+                </div>
+            </main>
+        </React.Fragment>
+    );
+};
 
 export default LoginForm;
