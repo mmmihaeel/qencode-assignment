@@ -1,10 +1,6 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import ForgotPasswordForm from "../components/ForgotPasswordForm";
 
-const ForgotPasswordPage: FC = () => {
-    return <React.Fragment>
-        <ForgotPasswordForm />
-    </React.Fragment>;
-}
+const ForgotPasswordPage: FC = () => <ForgotPasswordForm />;
 
 export default ForgotPasswordPage;

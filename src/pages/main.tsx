@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const MainPage: FC = () => {
     const navigate = useNavigate();
-    const [message, setMessage] = useState<string | null>(null);
+    const [message, setMessage] = useState<string>('');
 
     useEffect(() => {
         if (!Cookies.get('accessToken') && !Cookies.get('refreshToken')) {

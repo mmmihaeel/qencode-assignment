@@ -13,16 +13,8 @@ const REDIRECT_URL = import.meta.env.VITE_REDIRECT_URL;
 
 const ForgotPasswordForm: FC = () => {
     const navigate = useNavigate();
-    const [forgotPasswordLoading, setForgotPasswordLoading] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState<string>("");
     const [successMessage, setSuccessMessage] = useState<string>("");
-    const [errors, setErrors] = useState<
-        {
-            loc: string[];
-            msg: string;
-            type: string;
-        }[]
-    >([]);
+    const [errors, setErrors] = useState<string[]>([]);
 
     const forgotPasswordForm = useForm<ForgotPasswordDto>({
         mode: "onChange",
@@ -31,27 +23,15 @@ const ForgotPasswordForm: FC = () => {
 
     const onSubmit: SubmitHandler<ForgotPasswordDto> = async (dto: ForgotPasswordDto) => {
         try {
-            setForgotPasswordLoading(true);
             setErrors([]);
-            setErrorMessage("");
             const { error } = await Api().auth.resetPassword({ email: dto.email, redirect_url: REDIRECT_URL })
             if (!error) {
                 setSuccessMessage('Password reset link was sent to your email!')
             }
         } catch (err) {
-            if (typeof (err as ErrorResponse)?.detail === "string") {
-                setErrorMessage(String((err as ErrorResponse)?.detail));
-            }
-            if (Array.isArray((err as ErrorResponse)?.detail)) {
-                setErrors(
-                    (err as ErrorResponse)?.detail as {
-                        loc: string[];
-                        msg: string;
-                        type: string;
-                    }[]
-                );
-            }
-            setForgotPasswordLoading(false);
+            const details = (err as ErrorResponse)?.detail;
+            const unifiedErrors = typeof details === 'string' ? [details] : details.map(err => err.msg);
+            setErrors(unifiedErrors);
         }
     }
 
@@ -78,11 +58,11 @@ const ForgotPasswordForm: FC = () => {
                             className={`submit`}
                             type="submit"
                             style={
-                                errorMessage || errors.length
+                                errors.length
                                     ? { border: "1px solid #BE2323" }
                                     : undefined
                             }
-                            text={forgotPasswordLoading ? "Loading..." : "Send"}
+                            text={forgotPasswordForm.formState.isSubmitting ? "Loading..." : "Send"}
                         />
                         <Button
                             submit={false}
@@ -95,13 +75,12 @@ const ForgotPasswordForm: FC = () => {
                             }}
                         />
                         {successMessage && <span className={"success"}>{successMessage}</span>}
-                        {errorMessage && <span className={"error"}>{errorMessage}</span>}
                         {errors.length > 0 && (
                             <div id="error-container">
-                                <h2>Error:</h2>
+                                <h2>Errors:</h2>
                                 <ul>
                                     {errors.map((error, index) => (
-                                        <li key={index}>{error.msg}</li>
+                                        <li key={index}>{error}</li>
                                     ))}
                                 </ul>
                             </div>

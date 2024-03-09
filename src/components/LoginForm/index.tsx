@@ -15,16 +15,8 @@ import Button from "../UI/button";
 
 const LoginForm: FC = () => {
     const navigate = useNavigate();
-    const [loginLoading, setLoginLoading] = useState<boolean>(false);
     const [passwordShown, setPasswordShown] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState<string>("");
-    const [errors, setErrors] = useState<
-        {
-            loc: string[];
-            msg: string;
-            type: string;
-        }[]
-    >([]);
+    const [errors, setErrors] = useState<string[]>([]);
     const togglePasswordShown = () => {
         setPasswordShown((prev) => !prev);
     };
@@ -36,9 +28,7 @@ const LoginForm: FC = () => {
 
     const onSubmit: SubmitHandler<LoginDto> = async (dto: LoginDto) => {
         try {
-            setLoginLoading(true);
             setErrors([]);
-            setErrorMessage("");
             const {
                 refresh_token,
                 access_token,
@@ -55,21 +45,10 @@ const LoginForm: FC = () => {
                 expires: token_expire,
             });
             navigate("/");
-            setLoginLoading(false);
         } catch (err) {
-            if (typeof (err as ErrorResponse)?.detail === "string") {
-                setErrorMessage(String((err as ErrorResponse)?.detail));
-            }
-            if (Array.isArray((err as ErrorResponse)?.detail)) {
-                setErrors(
-                    (err as ErrorResponse)?.detail as {
-                        loc: string[];
-                        msg: string;
-                        type: string;
-                    }[]
-                );
-            }
-            setLoginLoading(false);
+            const details = (err as ErrorResponse)?.detail;
+            const unifiedErrors = typeof details === 'string' ? [details] : details.map(err => err.msg);
+            setErrors(unifiedErrors);
         }
     };
 
@@ -136,19 +115,18 @@ const LoginForm: FC = () => {
                                 className={`submit`}
                                 type="submit"
                                 style={
-                                    errorMessage || errors.length
+                                    errors.length
                                         ? { border: "1px solid #BE2323" }
                                         : undefined
                                 }
-                                text={loginLoading ? "Loading..." : "Log in to Qencode"}
+                                text={loginForm.formState.isSubmitting ? "Loading..." : "Log in to Qencode"}
                             />
-                            {errorMessage && <span className={"error"}>{errorMessage}</span>}
                             {errors.length > 0 && (
                                 <div id="error-container">
-                                    <h2>Error:</h2>
+                                    <h2>Errors:</h2>
                                     <ul>
                                         {errors.map((error, index) => (
-                                            <li key={index}>{error.msg}</li>
+                                            <li key={index}>{error}</li>
                                         ))}
                                     </ul>
                                 </div>

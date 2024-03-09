@@ -12,7 +12,6 @@ const Button: FC<ButtonProps> = ({ text, submit, ...rest }) => {
         <React.Fragment>
             <button
                 className={submit ? 'submit' : 'cancel'}
-                id='button'
                 {...rest}
             >
                 {text}
