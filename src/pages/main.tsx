@@ -13,7 +13,6 @@ const MainPage: FC = () => {
                 navigate('/login');
             }, 2000)
         } else {
-            //
             setMessage('You are succesfully logged in to Qencode!')
         }
 
