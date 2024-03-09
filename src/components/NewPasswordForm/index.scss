@@ -1,0 +1,74 @@
+.newPassword {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+
+    @media (max-width: 550px) {
+        max-width: 310px;
+    }
+
+    .title {
+        width: 350px;
+        color: rgb(26, 25, 25);
+        font-family: "BasisGrotesquePro";
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 39px;
+        margin: 80px auto 0;
+        letter-spacing: 0%;
+        text-align: center;
+
+        @media (max-width: 1550px) {
+            font-size: 33px;
+            width: 340px;
+            margin: 70px auto 0;
+        }
+
+        @media (max-width: 850px) {
+            font-size: 30px;
+            width: 320px;
+            margin: 60px auto 0;
+        }
+    }
+
+    .form {
+        width: 100%;
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+
+        #error-container li,
+        .error {
+            display: block;
+            margin-top: 2px;
+            font-family: "BasisGrotesquePro";
+            color: #be2323;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+
+            @media (max-width: 1550px) {
+                font-size: 18px;
+            }
+
+            @media (max-width: 850px) {
+                font-size: 16px;
+            }
+        }
+
+        #error-container {
+            margin-top: 10px;
+        }
+
+        #error-container ul {
+            list-style: none;
+            padding: 0;
+        }
+    }
+}

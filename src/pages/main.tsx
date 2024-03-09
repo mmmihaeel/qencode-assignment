@@ -1,10 +1,30 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const MainPage: FC = () => {
-    console.log(import.meta.env.AUTH_API_URL, import.meta.env.REDIRECT_URL);
+    const navigate = useNavigate();
+    const [message, setMessage] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!Cookies.get('accessToken') && !Cookies.get('refreshToken')) {
+            setMessage('You are not logged in. Redirecting...')
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000)
+        } else {
+            //
+            setMessage('You are succesfully logged in to Qencode!')
+        }
+
+    }, [navigate])
 
     return <React.Fragment>
-
+        <main className={"container"}>
+            <div className={'message'}>
+                {message}
+            </div>
+        </main>
     </React.Fragment>;
 }
 

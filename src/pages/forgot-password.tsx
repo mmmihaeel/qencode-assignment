@@ -1,5 +1,5 @@
-import React, { FC, lazy } from "react";
-const ForgotPasswordForm = lazy(() => import("../components/ForgotPasswordForm"));
+import React, { FC } from "react";
+import ForgotPasswordForm from "../components/ForgotPasswordForm";
 
 const ForgotPasswordPage: FC = () => {
     return <React.Fragment>

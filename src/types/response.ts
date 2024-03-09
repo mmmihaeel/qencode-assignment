@@ -1,26 +1,23 @@
 export interface ErrorResponse {
   error: number;
-  detail: {
-    loc: string[];
-    msg: string;
-    type: string;
-  }[];
+  detail:
+    | {
+        loc: string[];
+        msg: string;
+        type: string;
+      }[]
+    | string;
   timestamp: number;
 }
 
 export interface LoginResponse extends ErrorResponse {
-  access_token?: string;
-  refresh_token?: string;
-  token_expire?: number;
-  refresh_token_expire?: number;
+  access_token: string;
+  refresh_token: string;
+  token_expire: number;
+  refresh_token_expire: number;
 }
 
-export interface PasswordResetResponse extends ErrorResponse {
-  token: string;
-  secret: string;
-  password: string;
-  password_confirm: string;
-}
+export interface PasswordResetResponse extends ErrorResponse {}
 
 export interface SetNewPasswordResponse extends ErrorResponse {}
 
