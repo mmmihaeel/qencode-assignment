@@ -1,0 +1,33 @@
+#error-container li,
+.error,
+.success {
+    display: block;
+    margin-top: 2px;
+    font-family: "BasisGrotesquePro";
+    color: #be2323;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    @media (max-width: 1550px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 850px) {
+        font-size: 16px;
+    }
+}
+
+.success {
+    color: rgb(49, 111, 234);
+}
+
+#error-container {
+    margin-top: 10px;
+}
+
+#error-container ul {
+    list-style: none;
+    padding: 0;
+}

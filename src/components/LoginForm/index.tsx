@@ -12,6 +12,7 @@ import { Api } from "../../services";
 import Cookies from "js-cookie";
 import Logo from "../UI/logo";
 import Button from "../UI/button";
+import MessageComponent from "../UI/message";
 
 const LoginForm: FC = () => {
     const navigate = useNavigate();
@@ -121,16 +122,7 @@ const LoginForm: FC = () => {
                                 }
                                 text={loginForm.formState.isSubmitting ? "Loading..." : "Log in to Qencode"}
                             />
-                            {errors.length > 0 && (
-                                <div id="error-container">
-                                    <h2>Errors:</h2>
-                                    <ul>
-                                        {errors.map((error, index) => (
-                                            <li key={index}>{error}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
+                            <MessageComponent errors={errors} />
                         </form>
                         <div className={"details"}>
                             Is your company new to Qencode?{" "}

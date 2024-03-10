@@ -9,6 +9,7 @@ import { Api } from "../../services";
 import Logo from "../UI/logo";
 import Input from "../UI/Input";
 import Button from "../UI/button";
+import MessageComponent from "../UI/message";
 const REDIRECT_URL = import.meta.env.VITE_REDIRECT_URL;
 
 const ForgotPasswordForm: FC = () => {
@@ -74,17 +75,7 @@ const ForgotPasswordForm: FC = () => {
                                 navigate('/login');
                             }}
                         />
-                        {successMessage && <span className={"success"}>{successMessage}</span>}
-                        {errors.length > 0 && (
-                            <div id="error-container">
-                                <h2>Errors:</h2>
-                                <ul>
-                                    {errors.map((error, index) => (
-                                        <li key={index}>{error}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                        <MessageComponent errors={errors} successMessage={successMessage} />
                     </form>
                 </FormProvider>
             </div>

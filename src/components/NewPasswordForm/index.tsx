@@ -9,6 +9,7 @@ import { Api } from "../../services";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../UI/button";
 import Input from "../UI/Input";
+import MessageComponent from "../UI/message";
 
 const NewPasswordForm: FC = () => {
     const [searchParams] = useSearchParams();
@@ -93,17 +94,7 @@ const NewPasswordForm: FC = () => {
                             }
                             text={newPasswordForm.formState.isSubmitting ? "Loading..." : "Reset Password"}
                         />
-                        {successMessage && <span className={"success"}>{successMessage}</span>}
-                        {errors.length > 0 && (
-                            <div id="error-container">
-                                <h2>Errors:</h2>
-                                <ul>
-                                    {errors.map((error, index) => (
-                                        <li key={index}>{error}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                        <MessageComponent errors={errors} successMessage={successMessage} />
                     </form>
                 </FormProvider>
             </div>
