@@ -7,15 +7,22 @@ const MainPage: FC = () => {
     const [message, setMessage] = useState<string>('');
 
     useEffect(() => {
+        let timeoutId: number;
+
         if (!Cookies.get('accessToken') && !Cookies.get('refreshToken')) {
             setMessage('You are not logged in. Redirecting...')
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 navigate('/login');
             }, 2000)
         } else {
             setMessage('You are succesfully logged in to Qencode!')
         }
 
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        };
     }, [navigate])
 
     return <React.Fragment>
